@@ -52,8 +52,12 @@ public class Pa2U3P5RgApplication implements CommandLineRunner{
 		
 		//this.iFacturaService.guardar(fac);
 		
-		Factura factura = this.iFacturaService.buscarPorNumero("0001-02569");
-		System.out.println(factura);
+		Factura fact1 = this.iFacturaService.buscarPorNumero("0001-02569");
+		
+		for(DetalleFactura det: fact1.getDetalleFactura()) {
+			System.out.println(det.getCodigoBarras());
+		}
+		System.out.println(fact1);
 		
 	}
 

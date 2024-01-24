@@ -21,7 +21,9 @@ public class FacturaRepositoryImpl implements IFacturaRepository {
 		// TODO Auto-generated method stub
 		TypedQuery<Factura> myQuery = this.entityManager.createQuery("SELECT f FROM Factura f WHERE f.numero = :numero", Factura.class);
 		myQuery.setParameter("numero", numero);
-		return myQuery.getSingleResult();
+		Factura fact = myQuery.getSingleResult();
+		fact.getDetalleFactura().size();//Le digo que carge el detalle bajo demanda
+		return fact;
 	}
 
 	@Override

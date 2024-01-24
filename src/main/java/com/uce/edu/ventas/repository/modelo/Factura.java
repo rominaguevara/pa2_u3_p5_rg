@@ -6,6 +6,7 @@ import java.util.List;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -32,7 +33,9 @@ public class Factura {
 	@Column(name ="fact_cedula")
 	private String cedula;
 	
-	@OneToMany(mappedBy = "factura", cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)//FetchType.EAGER hace que SIEMPRE traiga toda la información de la relación si la tuviese la necesite o no
+																					   //FetchType.LAZY NUNCA va a traer la información de la relación, trae la información cuando tiene la señal
+																					   //EAGER ocupa más recursos, por que hace así no se necesite , mejor es usar LAZY POR QUE ES MAS EFICIENTE pero especificando la demanda que necesita, eso se hace en el Query, por eso el default es el Lazy pero si no se pone la señal ahí si da error
 	private List<DetalleFactura> detalleFactura;
 
 	//TO STRING
@@ -40,8 +43,6 @@ public class Factura {
 	public String toString() {
 		return "Factura [id=" + id + ", numero=" + numero + ", fecha=" + fecha + "]";
 	}
-
-	
 
 	//GET Y SET
 	public Integer getId() {
