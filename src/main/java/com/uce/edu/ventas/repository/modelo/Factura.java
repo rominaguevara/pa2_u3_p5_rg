@@ -38,16 +38,19 @@ public class Factura {
 																					   //EAGER ocupa más recursos, por que hace así no se necesite , mejor es usar LAZY POR QUE ES MAS EFICIENTE pero especificando la demanda que necesita, eso se hace en el Query, por eso el default es el Lazy pero si no se pone la señal ahí si da error
 	private List<DetalleFactura> detalleFactura;
 
+	
 	//TO STRING
 	@Override
 	public String toString() {
-		return "Factura [id=" + id + ", numero=" + numero + ", fecha=" + fecha + "]";
-	}
+		return "Factura [id=" + id + ", numero=" + numero + ", fecha=" + fecha + ", cedula=" + cedula
+				+ ", detalleFactura=" + detalleFactura + "]";
+	}	
 
 	//GET Y SET
 	public Integer getId() {
 		return id;
 	}
+
 
 	public void setId(Integer id) {
 		this.id = id;
