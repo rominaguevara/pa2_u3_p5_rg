@@ -7,14 +7,15 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-import com.uce.edu.hotel.repository.modelo.Hotel;
-import com.uce.edu.hotel.service.IHotelService;
+import com.uce.edu.ventas.repository.modelo.DetalleFactura;
+import com.uce.edu.ventas.repository.modelo.Factura;
+import com.uce.edu.ventas.service.IFacturaService;
 
 @SpringBootApplication
 public class Pa2U3P5RgApplication implements CommandLineRunner {
 
 	@Autowired
-	private IHotelService iHotelService;
+	private IFacturaService iFacturaService;
 
 	// Join Types en Jakarta Persistence
 
@@ -37,28 +38,32 @@ public class Pa2U3P5RgApplication implements CommandLineRunner {
 		// TODO Auto-generated method stub
 		
 		System.out.println("INNER JOIN");
-		List<Hotel> listaHotel = this.iHotelService.buscarHotelInnerJoin("Carol Michel");
-		for(Hotel h: listaHotel) {
-			System.out.println(h);
+		List<Factura> lista1 = this.iFacturaService.buscarFacturasInnerJoin();
+		for(Factura f1: lista1) {
+			System.out.println(f1.getNumero());
+//			for(DetalleFactura d :f1.getDetalleFactura()) {
+//				System.out.println(d.getNombreProducto());
+//			}
 		}
 		
 		
-		System.out.println("LEFT JOIN");
-		List<Hotel> listaHotel2 = this.iHotelService.buscarHotelLeftJoin("Pedernales");
-		for(Hotel h: listaHotel2) {
-			System.out.println(h);
+		System.out.println("WHERE JOIN");
+		List<Factura> lista2 = this.iFacturaService.buscarFacturasWhereJoin();
+		for(Factura f2: lista2) {
+			System.out.println(f2.getNumero());
+			for(DetalleFactura d :f2.getDetalleFactura()) {
+				System.out.println(d.getNombreProducto());
+			}
 		}
 		
-		System.out.println("RIGHT JOIN");
-		List<Hotel> listaHotel3 = this.iHotelService.buscarHotelRightJoin("Matrimonial");
-		for(Hotel h: listaHotel3) {
-			System.out.println(h);
-		}
 		
-		System.out.println("FULL JOIN");
-		List<Hotel> listaHotel4 = this.iHotelService.buscarHotelFulltJoin("Disponible");
-		for(Hotel h: listaHotel4) {
-			System.out.println(h);
+		System.out.println("FETCH JOIN");
+		List<Factura> lista3 = this.iFacturaService.buscarFacturasFetchJoin();
+		for(Factura f3: lista3) {
+			System.out.println(f3.getNumero());
+			for(DetalleFactura d :f3.getDetalleFactura()) {
+				System.out.println(d.getNombreProducto());
+			}
 		}
 	}
 
