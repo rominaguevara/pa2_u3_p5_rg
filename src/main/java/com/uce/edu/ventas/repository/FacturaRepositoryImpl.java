@@ -3,8 +3,6 @@ package com.uce.edu.ventas.repository;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import javax.imageio.plugins.tiff.FaxTIFFTagSet;
-
 import org.springframework.stereotype.Repository;
 
 import com.uce.edu.ventas.repository.modelo.Factura;

@@ -22,4 +22,5 @@ public interface IHotelRepository {
 	public List<Hotel> seleccionarHotelRightJoin(String clase);
 	
 	public List<Hotel> seleccionarHotelFulltJoin(String disponibilidad);
+		
 }
