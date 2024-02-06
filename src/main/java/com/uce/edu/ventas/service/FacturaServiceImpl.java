@@ -31,7 +31,8 @@ public class FacturaServiceImpl implements IFacturaService {
 	}
 
 	@Override
-	@Transactional(value = TxType.REQUIRED)
+	@Transactional(value = TxType.REQUIRED)//T1
+	//begin
 	public void guardar(Factura factura, Cliente cliente) {
 		// TODO Auto-generated method stub
 		System.out.println(TransactionSynchronizationManager.isActualTransactionActive());
@@ -40,6 +41,8 @@ public class FacturaServiceImpl implements IFacturaService {
 		this.clienteService.guardar(cliente);
 		System.out.println("Paso el insert de cliente");
 	}
+	//commit
+	//Aquí es lo que salta el error
 
 	@Override
 	public List<Factura> buscarFacturasInnerJoin() {
@@ -99,6 +102,15 @@ public class FacturaServiceImpl implements IFacturaService {
 	public List<FacturaDTO> buscarFacturasDTO() {
 		// TODO Auto-generated method stub
 		return this.iFacturaRepository.seleccionarFacturasDTO();
+	}
+
+	@Override
+	//@Transactional(value = TxType.MANDATORY)//si no esxiste una transacción abierta lanza una excepción
+	public void prueba() {
+		// TODO Auto-generated method stub
+		System.out.println("Este método es de prueba");
+		System.out.println("Prueba: "+TransactionSynchronizationManager.isActualTransactionActive());
+		
 	}
 
 }
