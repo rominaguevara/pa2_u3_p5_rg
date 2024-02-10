@@ -1,5 +1,6 @@
 package com.uce.edu.ventas.repository.modelo;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -13,6 +14,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
 import jakarta.persistence.Table;
+import jakarta.persistence.Transient;
 
 @Entity
 @Table(name = "factura")
@@ -33,6 +35,9 @@ public class Factura {
 	@Column(name ="fact_cedula")
 	private String cedula;
 	
+	@Transient//HACE QUE NO SE REFLEJE EN LA BASE DE DATOS
+	private BigDecimal valorIVA;
+	
 	@OneToMany(mappedBy = "factura", cascade = CascadeType.ALL, fetch = FetchType.LAZY)//FetchType.EAGER hace que SIEMPRE traiga toda la información de la relación si la tuviese la necesite o no
 																					   //FetchType.LAZY NUNCA va a traer la información de la relación, trae la información cuando tiene la señal
 																					   //EAGER ocupa más recursos, por que hace así no se necesite , mejor es usar LAZY POR QUE ES MAS EFICIENTE pero especificando la demanda que necesita, eso se hace en el Query, por eso el default es el Lazy pero si no se pone la señal ahí si da error
@@ -40,15 +45,18 @@ public class Factura {
 
 	
 	//TO STRING
-	@Override
-	public String toString() {
-		return "Factura [id=" + id + ", numero=" + numero + ", fecha=" + fecha + ", cedula=" + cedula
-				+ ", detalleFactura=" + detalleFactura + "]";
-	}	
+		
 
 	//GET Y SET
 	public Integer getId() {
 		return id;
+	}
+
+
+	@Override
+	public String toString() {
+		return "Factura [id=" + id + ", numero=" + numero + ", fecha=" + fecha + ", cedula=" + cedula + ", valorIVA="
+				+ valorIVA + ", detalleFactura=" + detalleFactura + "]";
 	}
 
 
@@ -88,4 +96,14 @@ public class Factura {
 	public void setCedula(String cedula) {
 		this.cedula = cedula;
 	}
+
+	public BigDecimal getValorIVA() {
+		return valorIVA;
+	}
+
+	public void setValorIVA(BigDecimal valorIVA) {
+		this.valorIVA = valorIVA;
+	}
+	
+	
 }

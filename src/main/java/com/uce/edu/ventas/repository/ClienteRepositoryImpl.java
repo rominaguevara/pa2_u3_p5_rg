@@ -17,7 +17,7 @@ public class ClienteRepositoryImpl implements IClienteRepository {
 	private EntityManager entityManager;
 	
 	@Override
-	//@Transactional(value= TxType.MANDATORY)//TODOS LOS METODOS DE LA CAPA REPOSITORY DEBEN TENER MANDATORY, EXCEPTO LOS MÉTODOS QUE NO AFECTA A LA BASE DE DATOS ES DECIR EL SELECT, PARA LOS SELECT DEBEN SER LOS NOT_SUPPORTED
+	@Transactional(value= TxType.MANDATORY)//TODOS LOS METODOS DE LA CAPA REPOSITORY DEBEN TENER MANDATORY, EXCEPTO LOS MÉTODOS QUE NO AFECTA A LA BASE DE DATOS ES DECIR EL SELECT, PARA LOS SELECT DEBEN SER LOS NOT_SUPPORTED
 	//begin
 	public void insertar(Cliente cliente) {
 		// TODO Auto-generated method stub
