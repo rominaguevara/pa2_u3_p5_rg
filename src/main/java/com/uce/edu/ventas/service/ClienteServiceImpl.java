@@ -1,5 +1,7 @@
 package com.uce.edu.ventas.service;
 
+import java.util.concurrent.TimeUnit;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.support.TransactionSynchronizationManager;
@@ -10,24 +12,30 @@ import com.uce.edu.ventas.repository.modelo.Cliente;
 import jakarta.transaction.Transactional;
 import jakarta.transaction.Transactional.TxType;
 
-
 @Service
 public class ClienteServiceImpl implements IClienteService {
 
 	@Autowired
 	private IClienteRepository clienteRepository;
-	
+
 	@Override
-	@Transactional(value = TxType.REQUIRES_NEW)//T2
-	//begin
+	@Transactional(value = TxType.REQUIRES_NEW) // T2
+	// begin
 	public void guardar(Cliente cliente) {
 		// TODO Auto-generated method stub
+		System.out.println("Nombre Hilo: "+Thread.currentThread().getName());
 		try {
-		this.clienteRepository.insertar(cliente);
-		}catch(Exception e) {
+			this.clienteRepository.insertar(cliente);
+			try {
+				TimeUnit.SECONDS.sleep(1);
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		} catch (Exception e) {
 			System.out.println(e.getClass());
 		}
-		//commit
+		// commit
 	}
 
 	@Override
@@ -35,7 +43,7 @@ public class ClienteServiceImpl implements IClienteService {
 	public void pruebaSupports() {
 		// TODO Auto-generated method stub
 		System.out.println("Este es un método supports");
-		System.out.println("Prueba Supports: "+TransactionSynchronizationManager.isActualTransactionActive());
+		System.out.println("Prueba Supports: " + TransactionSynchronizationManager.isActualTransactionActive());
 	}
 
 	@Override
@@ -43,7 +51,7 @@ public class ClienteServiceImpl implements IClienteService {
 	public void pruebaNever() {
 		// TODO Auto-generated method stub
 		System.out.println("Este es un método never");
-		System.out.println("Prueba Never: "+TransactionSynchronizationManager.isActualTransactionActive());
+		System.out.println("Prueba Never: " + TransactionSynchronizationManager.isActualTransactionActive());
 	}
 
 }
